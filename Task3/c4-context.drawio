@@ -1,0 +1,92 @@
+<mxfile host="app.diagrams.net" modified="2026-04-19T00:00:00.000Z" agent="drawio" version="24.0.0" type="device">
+  <diagram name="C4-Context-SmartHome" id="c4-context">
+    <mxGraphModel dx="1800" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="C4 Level 1 — Контекст интеграции «Умный дом» (PropDevelopment)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="800" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="owner" value="&lt;b&gt;Собственник&lt;/b&gt;&lt;div&gt;[Person]&lt;/div&gt;&lt;div style=&quot;font-size:10px;margin-top:6px&quot;&gt;Владелец жилья, использует мобильное приложение для оплаты ЖКУ и управления устройствами Умного дома&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#08427B;strokeColor=#052E56;fontColor=#FFFFFF;fontSize=12;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="80" y="80" width="220" height="130" as="geometry" />
+        </mxCell>
+
+        <mxCell id="guest" value="&lt;b&gt;Гость / посетитель&lt;/b&gt;&lt;div&gt;[Person]&lt;/div&gt;&lt;div style=&quot;font-size:10px;margin-top:6px&quot;&gt;Посетитель жилого комплекса. Может быть распознан биометрически (лицо) или по номеру авто&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#08427B;strokeColor=#052E56;fontColor=#FFFFFF;fontSize=12;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="1300" y="80" width="220" height="130" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ib" value="&lt;b&gt;Специалист по ИБ&lt;/b&gt;&lt;div&gt;[Person]&lt;/div&gt;&lt;div style=&quot;font-size:10px;margin-top:6px&quot;&gt;Настраивает политики доступа, расследует инциденты&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#08427B;strokeColor=#052E56;fontColor=#FFFFFF;fontSize=12;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="80" y="800" width="220" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="prop" value="&lt;b&gt;PropDevelopment&lt;/b&gt;&lt;div&gt;[Software System]&lt;/div&gt;&lt;div style=&quot;font-size:11px;margin-top:10px&quot;&gt;IT-ландшафт компании: витрины продаж и ЖКУ, CRM, приложения для собственников и клиентов, хранилище данных. Дополняется модулем «Умный дом» для интеграции с партнёром.&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#1168BD;strokeColor=#0B4884;fontColor=#FFFFFF;fontSize=13;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="500" y="340" width="480" height="220" as="geometry" />
+        </mxCell>
+
+        <mxCell id="partner" value="&lt;b&gt;Платформа партнёра «Умный дом»&lt;/b&gt;&lt;div&gt;[External System]&lt;/div&gt;&lt;div style=&quot;font-size:10px;margin-top:6px&quot;&gt;Облачная платформа партнёра. Управляет физическими устройствами, выполняет распознавание лиц и номеров авто, отправляет события&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#6B6B6B;fontColor=#FFFFFF;fontSize=12;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="1200" y="340" width="320" height="160" as="geometry" />
+        </mxCell>
+
+        <mxCell id="intercom" value="&lt;b&gt;Интеллектуальный домофон&lt;/b&gt;&lt;div&gt;[External Device]&lt;/div&gt;&lt;div style=&quot;font-size:10px;margin-top:6px&quot;&gt;Видеодомофон с биометрическим распознаванием лиц&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#6B6B6B;fontColor=#FFFFFF;fontSize=12;verticalAlign=middle;dashed=1" vertex="1" parent="1">
+          <mxGeometry x="1200" y="540" width="320" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="barrier" value="&lt;b&gt;Интеллектуальный шлагбаум&lt;/b&gt;&lt;div&gt;[External Device]&lt;/div&gt;&lt;div style=&quot;font-size:10px;margin-top:6px&quot;&gt;Управление + распознавание автомобильных номеров (ANPR)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#6B6B6B;fontColor=#FFFFFF;fontSize=12;verticalAlign=middle;dashed=1" vertex="1" parent="1">
+          <mxGeometry x="1200" y="670" width="320" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="uk" value="&lt;b&gt;Управляющая компания (партнёр)&lt;/b&gt;&lt;div&gt;[External System]&lt;/div&gt;&lt;div style=&quot;font-size:10px;margin-top:6px&quot;&gt;Обслуживает ЖК, предоставляет API для ЖКУ&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#6B6B6B;fontColor=#FFFFFF;fontSize=12;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="80" y="340" width="280" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="gov" value="&lt;b&gt;Госорганы&lt;/b&gt;&lt;div&gt;[External System]&lt;/div&gt;&lt;div style=&quot;font-size:10px;margin-top:6px&quot;&gt;Росреестр, МФЦ — для онлайн-сделки&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#6B6B6B;fontColor=#FFFFFF;fontSize=12;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="80" y="490" width="280" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e1" value="Использует мобильное приложение&#10;для ЖКУ и Умного дома&#10;[HTTPS + OAuth2 + MFA]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=1;entryX=0.25;entryY=0;endArrow=classic;fontSize=10;labelBackgroundColor=#ffffff" edge="1" parent="1" source="owner" target="prop">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e2" value="Подходит к домофону /&#10;проезжает к шлагбауму" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;fontSize=10;labelBackgroundColor=#ffffff" edge="1" parent="1" source="guest" target="intercom">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2b" value="Авто распознаётся ANPR" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;fontSize=10;labelBackgroundColor=#ffffff" edge="1" parent="1" source="guest" target="barrier">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e3" value="Отправляет команды управления,&#10;права доступа, enrollment биометрии&#10;[mTLS + OAuth2 client credentials]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;fontSize=10;labelBackgroundColor=#ffffff" edge="1" parent="1" source="prop" target="partner">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="События устройств (открытие/отказ)&#10;[signed webhook, HMAC-SHA256]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;fontSize=10;dashed=1;labelBackgroundColor=#ffffff" edge="1" parent="1" source="partner" target="prop">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e5" value="Управление устройством,&#10;распознавание лица" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;fontSize=10;labelBackgroundColor=#ffffff" edge="1" parent="1" source="partner" target="intercom">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" value="Управление шлагбаумом,&#10;ANPR" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;fontSize=10;labelBackgroundColor=#ffffff" edge="1" parent="1" source="partner" target="barrier">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e7" value="API УК (ЖКУ)&#10;[существующая интеграция]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;startArrow=classic;fontSize=10;labelBackgroundColor=#ffffff" edge="1" parent="1" source="uk" target="prop">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e8" value="Онлайн-сделки&#10;[существующая интеграция]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;startArrow=classic;fontSize=10;labelBackgroundColor=#ffffff" edge="1" parent="1" source="gov" target="prop">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e9" value="Настраивает политики,&#10;просматривает аудит" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;fontSize=10;labelBackgroundColor=#ffffff" edge="1" parent="1" source="ib" target="prop">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend" value="&lt;b&gt;Легенда&lt;/b&gt;&lt;br&gt;■ Синий — пользователь (Person)&lt;br&gt;■ Голубой — система PropDevelopment&lt;br&gt;■ Серый — внешние системы и устройства&lt;br&gt;- - - пунктир — внешние устройства на объекте&lt;br&gt;- - - пунктирная стрелка — асинхронный канал" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=left;verticalAlign=top" vertex="1" parent="1">
+          <mxGeometry x="400" y="800" width="400" height="110" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,251 @@
+[
+  {
+    "kind": "Event",
+    "apiVersion": "audit.k8s.io/v1",
+    "level": "RequestResponse",
+    "auditID": "a1b2c3d4-0001-create-secure-ops",
+    "stage": "ResponseComplete",
+    "requestURI": "/api/v1/namespaces",
+    "verb": "create",
+    "user": {
+      "username": "minikube-user",
+      "groups": ["system:masters", "system:authenticated"]
+    },
+    "sourceIPs": ["192.168.49.1"],
+    "userAgent": "kubectl/v1.28.0",
+    "objectRef": {
+      "resource": "namespaces",
+      "name": "secure-ops",
+      "apiVersion": "v1"
+    },
+    "responseStatus": {"code": 201},
+    "requestReceivedTimestamp": "2026-04-19T10:00:00.100000Z",
+    "stageTimestamp": "2026-04-19T10:00:00.250000Z"
+  },
+  {
+    "kind": "Event",
+    "apiVersion": "audit.k8s.io/v1",
+    "level": "RequestResponse",
+    "auditID": "a1b2c3d4-0002-create-sa",
+    "stage": "ResponseComplete",
+    "requestURI": "/api/v1/namespaces/secure-ops/serviceaccounts",
+    "verb": "create",
+    "user": {
+      "username": "minikube-user",
+      "groups": ["system:masters", "system:authenticated"]
+    },
+    "objectRef": {
+      "resource": "serviceaccounts",
+      "namespace": "secure-ops",
+      "name": "monitoring",
+      "apiVersion": "v1"
+    },
+    "responseStatus": {"code": 201},
+    "requestReceivedTimestamp": "2026-04-19T10:00:01.000000Z",
+    "stageTimestamp": "2026-04-19T10:00:01.120000Z"
+  },
+  {
+    "kind": "Event",
+    "apiVersion": "audit.k8s.io/v1",
+    "level": "RequestResponse",
+    "auditID": "a1b2c3d4-0003-attacker-pod",
+    "stage": "ResponseComplete",
+    "requestURI": "/api/v1/namespaces/secure-ops/pods",
+    "verb": "create",
+    "user": {
+      "username": "minikube-user",
+      "groups": ["system:masters", "system:authenticated"]
+    },
+    "objectRef": {
+      "resource": "pods",
+      "namespace": "secure-ops",
+      "name": "attacker-pod"
+    },
+    "requestObject": {
+      "kind": "Pod",
+      "metadata": {"name": "attacker-pod", "namespace": "secure-ops"},
+      "spec": {
+        "containers": [
+          {"name": "attacker-pod", "image": "alpine", "command": ["sleep", "3600"]}
+        ]
+      }
+    },
+    "responseStatus": {"code": 201},
+    "requestReceivedTimestamp": "2026-04-19T10:00:02.000000Z",
+    "stageTimestamp": "2026-04-19T10:00:02.180000Z"
+  },
+  {
+    "kind": "Event",
+    "apiVersion": "audit.k8s.io/v1",
+    "level": "Metadata",
+    "auditID": "a1b2c3d4-0004-cani-secrets",
+    "stage": "ResponseComplete",
+    "requestURI": "/apis/authorization.k8s.io/v1/selfsubjectaccessreviews",
+    "verb": "create",
+    "user": {
+      "username": "minikube-user",
+      "groups": ["system:masters", "system:authenticated"]
+    },
+    "impersonatedUser": {
+      "username": "system:serviceaccount:secure-ops:monitoring",
+      "groups": ["system:serviceaccounts", "system:serviceaccounts:secure-ops", "system:authenticated"]
+    },
+    "objectRef": {
+      "resource": "selfsubjectaccessreviews"
+    },
+    "responseStatus": {"code": 201},
+    "requestReceivedTimestamp": "2026-04-19T10:00:03.200000Z",
+    "stageTimestamp": "2026-04-19T10:00:03.260000Z",
+    "annotations": {
+      "authorization.k8s.io/decision": "allow"
+    }
+  },
+  {
+    "kind": "Event",
+    "apiVersion": "audit.k8s.io/v1",
+    "level": "RequestResponse",
+    "auditID": "a1b2c3d4-0005-get-secret",
+    "stage": "ResponseComplete",
+    "requestURI": "/api/v1/namespaces/kube-system/secrets/default-token-x7p2m",
+    "verb": "get",
+    "user": {
+      "username": "minikube-user",
+      "groups": ["system:masters", "system:authenticated"]
+    },
+    "impersonatedUser": {
+      "username": "system:serviceaccount:secure-ops:monitoring",
+      "groups": ["system:serviceaccounts", "system:serviceaccounts:secure-ops", "system:authenticated"]
+    },
+    "objectRef": {
+      "resource": "secrets",
+      "namespace": "kube-system",
+      "name": "default-token-x7p2m",
+      "apiVersion": "v1"
+    },
+    "responseStatus": {"code": 200},
+    "requestReceivedTimestamp": "2026-04-19T10:00:04.000000Z",
+    "stageTimestamp": "2026-04-19T10:00:04.180000Z",
+    "annotations": {
+      "authorization.k8s.io/decision": "allow",
+      "authorization.k8s.io/reason": "impersonated via system:masters"
+    }
+  },
+  {
+    "kind": "Event",
+    "apiVersion": "audit.k8s.io/v1",
+    "level": "RequestResponse",
+    "auditID": "a1b2c3d4-0006-privileged-pod",
+    "stage": "ResponseComplete",
+    "requestURI": "/api/v1/namespaces/secure-ops/pods",
+    "verb": "create",
+    "user": {
+      "username": "minikube-user",
+      "groups": ["system:masters", "system:authenticated"]
+    },
+    "objectRef": {
+      "resource": "pods",
+      "namespace": "secure-ops",
+      "name": "privileged-pod"
+    },
+    "requestObject": {
+      "kind": "Pod",
+      "metadata": {"name": "privileged-pod", "namespace": "secure-ops"},
+      "spec": {
+        "containers": [
+          {
+            "name": "pwn",
+            "image": "alpine",
+            "command": ["sleep", "3600"],
+            "securityContext": {"privileged": true}
+          }
+        ],
+        "restartPolicy": "Never"
+      }
+    },
+    "responseStatus": {"code": 201},
+    "requestReceivedTimestamp": "2026-04-19T10:00:05.400000Z",
+    "stageTimestamp": "2026-04-19T10:00:05.620000Z"
+  },
+  {
+    "kind": "Event",
+    "apiVersion": "audit.k8s.io/v1",
+    "level": "RequestResponse",
+    "auditID": "a1b2c3d4-0007-exec-coredns",
+    "stage": "ResponseComplete",
+    "requestURI": "/api/v1/namespaces/kube-system/pods/coredns-5dd5756b68-f9r4q/exec?command=cat&command=/etc/resolv.conf&container=coredns",
+    "verb": "create",
+    "user": {
+      "username": "minikube-user",
+      "groups": ["system:masters", "system:authenticated"]
+    },
+    "objectRef": {
+      "resource": "pods",
+      "subresource": "exec",
+      "namespace": "kube-system",
+      "name": "coredns-5dd5756b68-f9r4q"
+    },
+    "responseStatus": {"code": 101},
+    "requestReceivedTimestamp": "2026-04-19T10:00:06.500000Z",
+    "stageTimestamp": "2026-04-19T10:00:06.800000Z"
+  },
+  {
+    "kind": "Event",
+    "apiVersion": "audit.k8s.io/v1",
+    "level": "RequestResponse",
+    "auditID": "a1b2c3d4-0008-delete-auditpolicy",
+    "stage": "ResponseComplete",
+    "requestURI": "/api/v1/namespaces/default/configmaps/audit-policy",
+    "verb": "delete",
+    "user": {
+      "username": "minikube-user",
+      "groups": ["system:masters", "system:authenticated"]
+    },
+    "impersonatedUser": {
+      "username": "admin",
+      "groups": ["system:authenticated"]
+    },
+    "objectRef": {
+      "resource": "configmaps",
+      "namespace": "default",
+      "name": "audit-policy"
+    },
+    "responseStatus": {"code": 404, "status": "Failure", "reason": "NotFound"},
+    "requestReceivedTimestamp": "2026-04-19T10:00:07.100000Z",
+    "stageTimestamp": "2026-04-19T10:00:07.180000Z"
+  },
+  {
+    "kind": "Event",
+    "apiVersion": "audit.k8s.io/v1",
+    "level": "RequestResponse",
+    "auditID": "a1b2c3d4-0009-escalate-binding",
+    "stage": "ResponseComplete",
+    "requestURI": "/apis/rbac.authorization.k8s.io/v1/namespaces/secure-ops/rolebindings",
+    "verb": "create",
+    "user": {
+      "username": "minikube-user",
+      "groups": ["system:masters", "system:authenticated"]
+    },
+    "objectRef": {
+      "resource": "rolebindings",
+      "namespace": "secure-ops",
+      "name": "escalate-binding",
+      "apiGroup": "rbac.authorization.k8s.io"
+    },
+    "requestObject": {
+      "apiVersion": "rbac.authorization.k8s.io/v1",
+      "kind": "RoleBinding",
+      "metadata": {"name": "escalate-binding", "namespace": "secure-ops"},
+      "subjects": [
+        {"kind": "ServiceAccount", "name": "monitoring", "namespace": "secure-ops"}
+      ],
+      "roleRef": {
+        "kind": "ClusterRole",
+        "name": "cluster-admin",
+        "apiGroup": "rbac.authorization.k8s.io"
+      }
+    },
+    "responseStatus": {"code": 201},
+    "requestReceivedTimestamp": "2026-04-19T10:00:08.300000Z",
+    "stageTimestamp": "2026-04-19T10:00:08.500000Z"
+  }
+]
