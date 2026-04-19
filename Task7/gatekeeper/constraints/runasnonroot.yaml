@@ -1,0 +1,11 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sRequireRunAsNonRoot
+metadata:
+  name: require-runasnonroot-audit-zone
+spec:
+  enforcementAction: deny
+  match:
+    namespaces: ["audit-zone"]
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
